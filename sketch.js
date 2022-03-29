@@ -7,11 +7,13 @@ var engine, world;
 var box1, pig1, bg, g2;
 let consntraintLog, slingShot;
 let gameState = "on";
+let backgroundImg;
+let score = 0;
 
 
 function preload(){
 //bg = loadImage("sprites/bg.png");
-getBackgroundImg();
+getTime();
 }
 
 function setup(){
@@ -56,19 +58,26 @@ function setup(){
 
 function draw(){
    // background(bg);
-   if (backgroundImg)
-   background(backgroundImg);
+   if (backgroundImg) background(backgroundImg);
     Engine.update(engine);
+
+    noStroke();
+    textSize(35);
+    fill("white");
+    text("Score: " + score, width-300, 50);
+
    // console.log(box2.body.position.x);
     box1.display();
     box2.display();
     ground.display();
     pig1.display();
+    pig1.score();
     log1.display();
 
     box3.display();
     box4.display();
     pig3.display();
+    pig3.score();
     log3.display();
 
     box5.display();
@@ -107,7 +116,7 @@ function keypressed(){
    // } 
 }
 async function getTime(){
- let response = await fetch("https://worldtimeapi.org/api/timezone/Asia/Tokyo");      
+ let response = await fetch("https://worldtimeapi.org/api/timezone/America/Chihuahua");      
 let Json = await response.json();
 let datetime = Json.datetime;
 let hour = datetime.slice(11,13);
@@ -117,7 +126,7 @@ if (hour>=06 && hour<=19){
 bg = "sprites/bg.png";   
 }
 else{
-    bg = "sprites/bg2.png";     
+bg = "sprites/bg2.jpg";     
 }
 backgroundImg = loadImage(bg);
 console.log(backgroundImg);
